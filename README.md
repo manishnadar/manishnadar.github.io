@@ -9,26 +9,22 @@ A high-end, editorial-grade professional portfolio designed for a **20-year vete
 - **Immersive Motion**: Custom magnetic liquid cursor, skew-reveal scroll animations, and a dynamic marquee background in the contact suite.
 
 ## 🚀 Key Technical Features
-- **Project Grid (Image-less)**: A pure typographic project list that emphasizes work title and tech stack over flashy imagery, echoing extreme designer confidence.
-- **SEO-Engineered**: Technical metadata (Title, Description, Keywords), Open Graph/Twitter infrastructure, and full **JSON-LD Structured Data Schema** (Person/ProfessionalService).
-- **Contact Suite**: A premium "Let's Build" overhaul featuring a glassmorphism form container and a background scrolling marquee.
+- **Backend Ready**: Migrated to **Formspree** for flawless contact form support on static hosts like GitHub Pages.
 - **Performance-First**: Zero dependencies. Pure HTML5, Vanilla CSS, and minimal Javascript for near-instant load times.
-- **Backend Ready**: Integrated PHP lead-handler (`send_mail.php`) for secure project inquiries.
+- **Personalized Architecture**: Featuring the user's professional portrait and deep-brand customization.
 
 ## 🛠️ Stack
 - **Structure**: Semantic HTML5
 - **Styling**: Vanilla CSS3 (Custom Design System)
 - **Interactions**: Native JavaScript (Intersection Observer, Custom Cursor Logic)
-- **Backend**: PHP 8.x (Mail Dispatcher)
+- **Static Hosting Engine**: Formspree (for serverless form handling)
 
 ## 📦 Setup & Deployment
-1. **Local Development**:
-   - Serve the project using a local PHP server (e.g., Apache/NGINX via XAMPP, WAMP, or `php -S localhost:8000`).
-   - Access via `http://localhost`. (Forms will not function on `file://` protocol).
-2. **Personalization**:
-   - Update `MANISH_PORTRAIT.JPG` in `assets/img/`.
-   - Update the **JSON-LD Schema** in `index.html` with your actual professional history.
-   - Update the `recipient` email in `send_mail.php`.
+1. **GitHub Pages Deployment**:
+   - The project is pre-configured for `https://manishnadar.github.io/`.
+   - Simply push the repository to GitHub and enable "GitHub Pages" in the repository settings.
+2. **Form Activation**:
+   - After your first test submission, you will receive an email from Formspree to activate your account and start receiving leads directly.
 
 ## 📜 Credits
 Design and Engineering by **Antigravity AI** in collaboration with **Manish Kumar Nadar**.

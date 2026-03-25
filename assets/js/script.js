@@ -124,38 +124,32 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData(contactForm);
             const data = Object.fromEntries(formData.entries());
 
-            fetch('send_mail.php', {
+            // Send API call to Formspree (Standard Post for better compatibility with static hosts)
+            fetch(contactForm.action || 'https://formspree.io/f/manish.nadar95@gmail.com', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: formData
             })
             .then(async response => {
-                const text = await response.text();
-                let result;
-                try {
-                    result = JSON.parse(text);
-                } catch (e) {
-                    console.error("Server returned non-JSON response:", text);
-                    throw new Error("Server did not return valid JSON. Ensure PHP is running.");
-                }
+                const result = await response.json();
                 return { ok: response.ok, result };
             })
             .then(({ ok, result }) => {
-                if (ok && result.status === 'success') {
+                if (ok) {
                     formStatus.className = 'form-status success';
-                    formStatus.textContent = result.message;
+                    formStatus.textContent = 'Thank you! Your message has been sent successfully.';
                     contactForm.reset();
                 } else {
                     formStatus.className = 'form-status error';
-                    formStatus.textContent = result.message || 'Oops! Something went wrong.';
+                    formStatus.textContent = result.error || 'Oops! Something went wrong.';
                 }
             })
             .catch(error => {
                 console.error("Fetch Error:", error);
                 formStatus.className = 'form-status error';
-                formStatus.textContent = 'Network error: Please ensure you are running on a PHP server (http://localhost) and not a file:// URL.';
+                formStatus.textContent = 'Network error: Form submission is only possible from a live URL or local server.';
             })
             .finally(() => {
                 submitBtn.textContent = originalText;

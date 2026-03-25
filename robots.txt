@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://manishkumar.com/sitemap.xml
+Sitemap: https://manishnadar.github.io/sitemap.xml
