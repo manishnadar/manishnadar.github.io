@@ -124,41 +124,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData(contactForm);
             const data = Object.fromEntries(formData.entries());
 
-            // Send API call to Formspree (Standard Post for better compatibility with static hosts)
-            fetch(contactForm.action || 'https://formspree.io/f/manish.nadar95@gmail.com', {
+            // Send to PHP backend
+            fetch(contactForm.action || 'send_mail.php', {
                 method: 'POST',
                 headers: {
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: formData
+                body: JSON.stringify(data)
             })
             .then(async response => {
                 const result = await response.json();
-                return { ok: response.ok, result };
-            })
-            .then(({ ok, result }) => {
-                if (ok) {
+                if (response.ok && result.status === 'success') {
                     formStatus.className = 'form-status success';
-                    formStatus.textContent = 'Thank you! Your message has been sent successfully.';
+                    formStatus.textContent = result.message || 'Thank you! Your message has been sent successfully.';
                     contactForm.reset();
+                    setTimeout(() => {
+                        formStatus.textContent = '';
+                        formStatus.className = 'form-status';
+                    }, 5000);
                 } else {
                     formStatus.className = 'form-status error';
-                    formStatus.textContent = result.error || 'Oops! Something went wrong.';
+                    formStatus.textContent = result.message || 'Oops! Something went wrong. Please try again.';
                 }
             })
             .catch(error => {
                 console.error("Fetch Error:", error);
                 formStatus.className = 'form-status error';
-                formStatus.textContent = 'Network error: Form submission is only possible from a live URL or local server.';
+                formStatus.textContent = 'Connection Error: Please make sure the site is running on a PHP-enabled server.';
             })
             .finally(() => {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
-                
-                setTimeout(() => {
-                    formStatus.textContent = '';
-                    formStatus.className = 'form-status';
-                }, 5000);
             });
         });
     }
